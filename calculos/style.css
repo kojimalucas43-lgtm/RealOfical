@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10vh;
+    min-height: 100vh;
+    height: auto;
+    padding-bottom: 2vh;
+    padding-top: 2vh;
+    background: linear-gradient(#4193ac #ff0000);
+    color: rgb(201, 10, 185);
+    font-family: "Borel", cursive;
+}
+
+div{
+    border: 2px solid #db07e2;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    gap: 2vh;
+    transition: all 200ms linear;
+    min-height: 350px;
+    max-height: 350px;
+}
+
+div:hover{
+     box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+}
+
+p{
+    width: 50px;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+    font-size: 30px;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 2vh;
+    flex-wrap: wrap;
+
+}
+label{
+    margin-bottom: -12px;
+    text-align: left;
+    width: 100%;
+    font-size: 20px;
+    padding-left: 15px;
+}
+input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+    border: 2px solid #090909;
+}
+button{
+    width: 100%;
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+    border: 2px solid #090909;
+    transition: all 300ms ease-in-out;
+    font-family: "Borel", cursive;
+}
+
+button:hover{
+    cursor: pointer;
+    border: 2px solid #db01beb2;
+    color: #d400d4;
+    font-weight: bold;
+    box-shadow: 0px 3px 10px #ff00bf8a;
+}
+
+nav{
+    position: fixed;
+    width: 100%;
+    padding: 30px;
+    background-color: aliceblue;
+    top: 0;
+    box-shadow: 0px 3px 10px #090909;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    animation: fromTop 1s ease-in-out;
+}
+
+@keyframes fromTop {
+    0%{
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+a{
+    text-decoration: none;
+    color: #090909;
+    font-size: 20px;
+    opacity: 0.5;
+    font-weight: 600;
+    transition: all 200ms ease-in-out;
+}
+
+a:hover{
+    cursor: pointer;
+    opacity: 1;
+}
