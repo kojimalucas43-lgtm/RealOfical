@@ -1,0 +1,38 @@
+body {
+  font-family: Arial;
+  text-align: center;
+  background-color: #87CEEB;
+}
+
+#game {
+  display: grid;
+  grid-template-columns: repeat(9, 80px);
+  grid-template-rows: repeat(5, 80px);
+  gap: 2px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+  background-color: #6ab04c;
+  border: 1px solid #333;
+  position: relative;
+}
+
+.plant {
+  background-color: green;
+}
+
+.zombie {
+  background-color: brown;
+}
+
+.bullet {
+  width: 10px;
+  height: 10px;
+  background: yellow;
+  position: absolute;
+  border-radius: 50%;
+}

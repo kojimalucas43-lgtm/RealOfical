@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+    <nav>
+        <a href="../calculos/">Cálculos</a>
+        <a href="../calculadoraGPT/">Calculadora GPT</a>
+        <a href="../calcMedia/">Média</a>
+        <a href="../JogoDaCobra/">Snake Game</a>
+        <a href="../PvZ/">PvZ</a>
+    </nav>
+<body>
+  <h1>🐍 Snake Game</h1>
+
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <p>Pontuação: <span id="score">0</span></p>
+  <button onclick="resetGame()">🔄 Resetar</button>
+
+  <!-- MENU GAME OVER -->
+  <div id="gameOverMenu" class="hidden">
+    <div class="menu-box">
+      <h2>💀 Game Over</h2>
+      <p>Pontuação: <span id="finalScore"></span></p>
+      <p>🏆 Recorde: <span id="highScore"></span></p>
+      <button onclick="resetGame()">Jogar Novamente</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
