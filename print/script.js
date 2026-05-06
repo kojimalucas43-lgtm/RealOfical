@@ -1,4 +1,6 @@
 function mostrar(){
+    var printDiv = document.getElementById('print')
+
     var texto = document.getElementById('i1').value
     var printTexto = document.getElementById('printTexto')
 
@@ -15,7 +17,9 @@ function mostrar(){
     printTexto.innerHTML = `A Cor Escolhida Foi: ${cor}`
     printData.innerHTML = `A Data Escolhida Foi: ${data}`
     printCheck.textContent = `Você escolheu: ${check}`
+    printDiv.style.display = 'blockS'
 
+    printDiv.style.backgroundColor = cor
     // console.log(texto, typeof texto)
 
-}
+} 

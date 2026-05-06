@@ -1,38 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap');
+
+:root {
+  --green-dark: #2d5a1b;
+  --green-mid: #4a8c2a;
+  --green-light: #7bc042;
+  --yellow: #f5c518;
+  --orange: #f08030;
+  --sky: #87ceeb;
+  --soil: #8B6335;
+  --soil-light: #a07840;
+  --zombie-color: #6aad3e;
+  --red: #e84040;
+  --blue: #4080e8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-  font-family: Arial;
-  text-align: center;
-  background-color: #87CEEB;
-}
-
-#game {
-  display: grid;
-  grid-template-columns: repeat(9, 80px);
-  grid-template-rows: repeat(5, 80px);
-  gap: 2px;
+  font-family: 'Nunito', sans-serif;
+  background: var(--green-dark);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 20px;
 }
 
-.cell {
-  width: 80px;
-  height: 80px;
-  background-color: #6ab04c;
-  border: 1px solid #333;
+/* ── SCREENS ── */
+.screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.screen.active { display: flex; }
+
+#startScreen {
+  background: linear-gradient(180deg, #1a4a0a 0%, #2d7a15 50%, #5ab52a 100%);
+}
+
+.title-container {
+  text-align: center;
   position: relative;
 }
 
-.plant {
-  background-color: green;
-}
-
-.zombie {
-  background-color: brown;
-}
-
-.bullet {
-  width: 10px;
-  height: 10px;
-  background: yellow;
-  position: absolute;
+.sun-deco {
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, #fff700, #ffa500);
   border-radius: 50%;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 40px #ffd700, 0 0 80px #ffaa00;
+  animation: sunPulse 2s ease-in-out infinite;
+}
+@keyframes sunPulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 40px #ffd700, 0 0 80px #ffaa00; }
+  50% { transform: scale(1.1); box-shadow: 0 0 60px #ffd700, 0 0 120px #ffaa00; }
+}
+
+.game-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 3.5rem;
+  color: #fff;
+  text-shadow: 4px 4px 0 #1a5a00, -2px -2px 0 #1a5a00, 0 0 30px rgba(255,220,0,0.6);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.game-title span {
+  color: var(--yellow);
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  color: #c8f07a;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.big-btn {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.6rem;
+  padding: 16px 48px;
+  background: linear-gradient(135deg, #f5c518, #f08030);
+  border: none;
+  border-radius: 50px;
+  color: #1a3a00;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #a05010, 0 8px 20px rgba(0,0,0,0.4);
+  transition: transform .1s, box-shadow .1s;
+  letter-spacing: 1px;
+}
+.big-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #a05010, 0 12px 30px rgba(0,0,0,0.4); }
+.big-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #a05010; }
+
+.instructions {
+  margin-top: 28px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 16px;
+  padding: 16px 24px;
+  color: #d0f0a0;
+  font-size: 0.95rem;
+  line-height: 2;
+}
+
+/* ── GAME OVER ── */
+#gameOverScreen {
+  background: rgba(10,0,0,0.92);
+  backdrop-filter: blur(8px);
+}
+.gameover-container {
+  text-align: center;
+  background: linear-gradient(135deg, #1a0000, #3a0808);
+  border: 3px solid #e84040;
+  border-radius: 24px;
+  padding: 48px 64px;
+  box-shadow: 0 0 60px rgba(232,64,64,0.5);
+}
+#gameOverTitle {
+  font-family: 'Fredoka One', cursive;
+  font-size: 3rem;
+  color: #e84040;
+  margin-bottom: 12px;
+  text-shadow: 0 0 20px #e84040;
+}
+#gameOverMsg {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+#finalScore {
+  color: var(--yellow);
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 28px;
+}
+#gameOverScreen .big-btn {
+  background: linear-gradient(135deg, #e84040, #a01010);
+  color: #fff;
+  box-shadow: 0 6px 0 #600, 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* ── GAME CONTAINER ── */
+#gameContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+#gameContainer.hidden { display: none; }
+
+/* ── HUD ── */
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 20px;
+  background: linear-gradient(90deg, #1a4a0a, #2d7a15);
+  border-bottom: 3px solid var(--green-light);
+  min-height: 52px;
+  z-index: 10;
+}
+#sunCount, #waveInfo, #scoreInfo {
+  font-family: 'Fredoka One', cursive;
+  color: #fff;
+  font-size: 1.2rem;
+  background: rgba(0,0,0,0.3);
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+#sunCount span, #waveInfo span, #scoreInfo span { color: var(--yellow); }
+
+#pauseBtn {
+  margin-left: auto;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1.2rem;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  transition: background .2s;
+}
+#pauseBtn:hover { background: rgba(255,255,255,0.2); }
+
+/* ── PLANT TRAY ── */
+#plantTray {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(90deg, #3a2a10, #5a4020);
+  border-bottom: 3px solid #8B6335;
+  flex-wrap: wrap;
+}
+.tray-label {
+  font-family: 'Fredoka One', cursive;
+  color: #d4a060;
+  font-size: 1rem;
+  margin-right: 6px;
+  white-space: nowrap;
+}
+.plant-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #4a3a10, #6a5020);
+  border: 2px solid #8B6335;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all .2s;
+  min-width: 70px;
+  user-select: none;
+}
+.plant-card:hover {
+  border-color: var(--yellow);
+  background: linear-gradient(135deg, #6a5010, #9a7830);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245,197,24,0.4);
+}
+.plant-card.selected {
+  border-color: #fff700;
+  background: linear-gradient(135deg, #8a7020, #c0a040);
+  box-shadow: 0 0 16px #ffd700;
+}
+.plant-card.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+.plant-icon { font-size: 1.6rem; line-height: 1; }
+.plant-name { font-size: 0.6rem; color: #d4c080; font-weight: 700; text-align: center; margin-top: 2px; }
+.plant-cost { font-size: 0.7rem; color: var(--yellow); font-weight: 900; }
+
+/* ── CANVAS AREA ── */
+#gameArea {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #87ceeb;
+}
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── FALLING SUN ── */
+.falling-sun {
+  position: absolute;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 20;
+  animation: fallSun 6s linear forwards;
+  filter: drop-shadow(0 0 8px #ffd700);
+  user-select: none;
+  transition: transform .1s;
+}
+.falling-sun:hover { transform: scale(1.3); }
+@keyframes fallSun {
+  0% { opacity: 0; transform: translateY(-40px); }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(300px); }
+}
+
+/* ── PAUSE OVERLAY ── */
+#pauseOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#pauseOverlay.visible { display: flex; }
+#pauseOverlay h2 {
+  font-family: 'Fredoka One', cursive;
+  color: #fff;
+  font-size: 3rem;
+  text-shadow: 0 0 20px rgba(255,255,255,0.5);
 }

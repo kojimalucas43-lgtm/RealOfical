@@ -1,19 +1,86 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Plants vs Zombies (Mini)</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plantas vs Zumbis</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h1>🌱 Plants vs Zombies (Mini)</h1>
-<div id="sun-counter">Sol: 50</div>
+<!-- TELA INICIAL -->
+<div id="startScreen" class="screen active">
+  <div class="title-container">
+    <div class="sun-deco"></div>
+    <h1 class="game-title">🌻 Plantas<br><span>vs</span><br>🧟 Zumbis</h1>
+    <p class="subtitle">Defenda seu jardim!</p>
+    <button id="startBtn" class="big-btn">▶ JOGAR</button>
+    <div class="instructions">
+      <p>☀️ Clique no sol para ganhar pontos de sol</p>
+      <p>🌱 Escolha uma planta → Clique no gramado para plantar</p>
+      <p>🧟 Impeça os zumbis de chegar ao fim!</p>
+    </div>
+  </div>
+</div>
 
-<div id="game"></div>
+<!-- TELA DE GAME OVER -->
+<div id="gameOverScreen" class="screen">
+  <div class="gameover-container">
+    <h2 id="gameOverTitle">💀 GAME OVER</h2>
+    <p id="gameOverMsg">Os zumbis invadiram seu jardim!</p>
+    <p id="finalScore"></p>
+    <button id="restartBtn" class="big-btn">🔄 JOGAR NOVAMENTE</button>
+  </div>
+</div>
 
-<button onclick="selectPlant()">Selecionar Planta (50)</button>
+<!-- JOGO -->
+<div id="gameContainer" class="hidden">
 
-<script src="script.js"></script>
+  <!-- HUD -->
+  <div id="hud">
+    <div id="sunCount">☀️ <span id="sunValue">100</span></div>
+    <div id="waveInfo">Onda: <span id="waveNum">1</span></div>
+    <div id="scoreInfo">Pontos: <span id="scoreVal">0</span></div>
+    <button id="pauseBtn">⏸</button>
+  </div>
+
+  <!-- BANDEJA DE PLANTAS -->
+<div id="plantTray">
+  <div class="tray-label">Plantas</div>
+  <div class="plant-card" data-plant="sunflower" data-cost="50">
+    <div class="plant-icon sunflower-icon">🌻</div>
+    <div class="plant-name">Girassol</div>
+    <div class="plant-cost">☀️50</div>
+  </div>
+  <div class="plant-card" data-plant="peashooter" data-cost="100">
+    <div class="plant-icon peashooter-icon">🌿</div>
+    <div class="plant-name">Ervilheiro</div>
+    <div class="plant-cost">☀️100</div>
+  </div>
+  <div class="plant-card" data-plant="wallnut" data-cost="50">
+    <div class="plant-icon wallnut-icon">🌰</div>
+    <div class="plant-name">Nogueira</div>
+    <div class="plant-cost">☀️50</div>
+  </div>
+  <div class="plant-card" data-plant="snowpea" data-cost="175">
+    <div class="plant-icon snowpea-icon">❄️</div>
+    <div class="plant-name">Ervilha Gelada</div>
+    <div class="plant-cost">☀️175</div>
+  </div>
+  <div class="plant-card" data-plant="cherry" data-cost="150">
+    <div class="plant-icon cherry-icon">🍒</div>
+    <div class="plant-name">Cereja Bomba</div>
+    <div class="plant-cost">☀️150</div>
+  </div>
+</div>
+
+  <!-- ÁREA DO JOGO -->
+  <div id="gameArea">
+    <canvas id="gameCanvas"></canvas>
+  </div>
+
+</div>
+
+<script src="game.js"></script>
 </body>
 </html>
